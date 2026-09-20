@@ -80,4 +80,4 @@
 
 ## 제출 링크
 
-소스 커밋: https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 / 실험 전 레포트: `reports/pre/lab1_10_pre_report.md` / 로그·VCD: `evidence/simulation.txt`, `evidence/wave.vcd`, `evidence/vivado/` / bit·해시: 위 3절 (SHA-256 `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`) / 영상: https://drive.google.com/drive/folders/17CYT6_AjE33Nx-5OtlnLNM2UfF3zLPYG (`20260914_175947.mp4`) / GitHub에서 링크 확인한 날짜: ______
+소스 커밋: https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 / 실험 전 레포트: `reports/pre/lab1_10_pre_report.md` / 로그·VCD: `evidence/simulation.txt`, `evidence/wave.vcd`, `evidence/vivado/` / bit·해시: 위 3절 (SHA-256 `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`) / 영상: https://drive.google.com/drive/folders/17CYT6_AjE33Nx-5OtlnLNM2UfF3zLPYG (`20260914_175947.mp4`) / GitHub에서 링크 확인한 날짜: 2026-09-20
