@@ -1,80 +1,83 @@
-# LAB1-10 7세그먼트 디코더 — 실험 후 레포트
+# 실험 후 레포트: LAB1-10 7세그먼트 디코더
 
-- 과목: 전자전기컴퓨터설계실험Ⅱ / LAB1 조합논리 (교육 번호 10, 기존 번호 11)
-- 작성자: 엄상혁 (학번 ______) / 조: ______ / 실험일: 2026-09-14 / 작성일: 2026-09-__
+작성자: 엄상혁 (학번 ______) / 조: g조 / 실험일: 2026-09-14 / 소스 커밋: `2f36dbc` (https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29) / 구현 도구·버전: Vivado 2026.1 (Build 6511674) / part: xc7s75fgga484-1 / top: `seg_decoder` (시뮬레이션 top `tb_seg_decoder`) / XDC: `constraints/pins.xdc`
 
-> 미수행·미확인 항목은 **미완료**로 표시했고 후속 확인을 적었다. bit 파일 생성만으로 보드 동작 성공을 선언하지 않는다.
+경로: Vivado 경로로 수행했다.
 
-## 1. 구현 환경 기록
+## Vivado 시뮬레이션 — Vivado 경로
 
-| 항목 | 기록 |
+프로젝트 생성·등록: RTL(`src/seg_decoder.v`)은 Design Sources, TB(`sim/tb_seg_decoder.sv`)는 Simulation Sources, XDC(`constraints/pins.xdc`)는 Constraints에 추가했다(Copy sources 끔). 설계 top은 `seg_decoder`, 시뮬레이션 top은 `tb_seg_decoder`이다.
+
+| 실행 | PASS 문구 | 검사 수 | 종료 시각 | 로그 |
+|---|---|---|---|---|
+| VS Code (Icarus) | `LAB1_PASS seg_decoder cases=16` | 16개 | 160 ns | `evidence/simulation.txt` |
+| Vivado xsim | `LAB1_PASS seg_decoder cases=16` | 16개 | 160 ns | `evidence/vivado/xsim_simulate.log` |
+
+- Icarus와 Vivado xsim의 PASS 문구, 검사 수, 종료 시각이 같다.
+
+- 파형: `evidence/wave.vcd`(Icarus VCD).
+
+## 오픈소스 실행 환경 — CLI 경로
+
+이 랩은 Vivado 경로로 수행했다. CLI 경로는 사용하지 않았다.
+
+## 합성·구현·비트스트림
+
+| 항목 | 결과 |
 |---|---|
-| Vivado | 2026.1 (win64, Build 6511674) |
-| part | xc7s75fgga484-1 (Spartan-7, fgga484, speed -1) |
-| 설계 top | `seg_decoder` (Design Sources) |
-| 시뮬레이션 top | `tb_seg_decoder` (`sim/tb_seg_decoder.sv`) |
-| 핀 제약 | `constraints/pins.xdc`, IOSTANDARD LVCMOS33 |
-| 소스 커밋 | `2f36dbc` — https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 |
-| Vivado 프로젝트 | `seven_segment.runs` (Git 제외: `.gitignore`) |
-
-## 2. VS Code(Icarus)와 Vivado 시뮬레이션 비교
-
-두 실행은 같은 RTL과 같은 자기검사 TB(`tb_seg_decoder`)를 사용했다.
-
-| 비교 항목 | VS Code (Icarus) | Vivado (xsim) |
-|---|---|---|
-| PASS 문구 | `LAB1_PASS seg_decoder cases=16` | `LAB1_PASS seg_decoder cases=16` |
-| 검사 수 | 16개 | 16개 |
-| 종료 시각 | 160 ns | 160 ns |
-| 로그 위치 | `evidence/simulation.txt` | `seven_segment.sim/sim_1/behav/xsim/simulate.log` |
-| 입력·출력 | 진리표와 일치 (사전 레포트 2절) | 같은 TB → 같은 결과 기대, 파형 캡처로 확인: ______ |
-
-일치 여부와 차이 원인: 두 환경 모두 PASS이고 종료 시각이 같다.
-
-## 3. 합성·구현·비트스트림
-
-| 단계 | 결과 |
-|---|---|
-| Vivado 시뮬레이션 (xsim) | `LAB1_PASS seg_decoder cases=16`, 종료 160 ns |
-| Run Synthesis | `synth_design completed successfully`, 0 errors / 0 critical warnings / 0 warnings: 확인 |
-| Run Implementation | 배치·배선 완료(`Fully Routed`) |
-| Generate Bitstream | `write_bitstream completed successfully`: 확인 |
-| bit 파일 | `seven_segment.runs/impl_1/seg_decoder.bit` (3,687,014 bytes) |
-| bit SHA-256 | `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81` |
+| Run Synthesis | 완료. `Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.` |
+| Run Implementation | 배치·배선 완료 |
+| Generate Bitstream | `write_bitstream completed successfully` |
 | DRC | Checks found: 1 — CFGBVS-1(Warning) |
 | Methodology | Checks found: 0 |
-| 타이밍 요약 | WNS/WHS = inf, 실패 endpoint 0 — 사용자 타이밍 제약이 없는 순수 조합회로라 setup/hold를 계산할 경로가 없다(`Timing 38-313`, `Power 33-232` 경고와 일치) |
+| 타이밍 | WNS/WHS = inf, 실패 endpoint 0. 사용자 타이밍 제약이 없는 조합회로라 통과 수치가 아니다(`Timing 38-313`). |
+| 경고 | `Place 46-29`, `Power 33-232`, `Timing 38-313` |
 
-- DRC의 `CFGBVS-1`은 CONFIG_VOLTAGE·CFGBVS 속성이 지정되지 않았다는 경고이다. 실제 보드의 구성 뱅크 전압과 대조해 해석한다(오류 아님).
-- 경고 코드: `Place 46-29`, `Power 33-232`, `Timing 38-313` — 클록·타이밍 제약이 없는 조합회로에서 예상되는 경고이다.
+- bit 경로: `seven_segment.runs/impl_1/seg_decoder.bit` (Git 제외) / 크기: 3,687,014 bytes / SHA-256: `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`
 
-현재 `constraints/pins.xdc` 상태: **정상** — 모든 포트(12개)에 PACKAGE_PIN과 IOSTANDARD(LVCMOS33)가 지정되어 있다.
+- 보고서 원본: `evidence/vivado/`의 `synth_runme.log`, `impl_runme.log`, `drc_routed.rpt`, `methodology_drc_routed.rpt`, `timing_summary_routed.rpt`.
 
-## 4. 실제 장치 기록 — 미완료
+- DRC의 `CFGBVS-1`은 CONFIG_VOLTAGE·CFGBVS 속성이 지정되지 않았다는 경고이다. 실제 보드의 구성 뱅크 전압과 대조해 해석하며 오류는 아니다.
 
-조건: Spartan-7 XC7S75 교육용 보드, Hardware Manager → Open target → Auto Connect → 장치 `xc7s75` 확인 → Program Device로 bit 기록.
+## 실제 보드 기록·실측
 
-- 장치 인식·기록 완료: ☐
-- 조교 무작위 선정 여부와 출석부 기록: ☐ 선정 ☐ 미선정
+연결된 장치: Spartan-7 XC7S75 교육용 보드(part `xc7s75fgga484-1`), 기록 도구: Vivado Hardware Manager (Open target → Program Device). 콘솔 로그: `evidence/board/console_lab1_10_sanghyeok.txt`.
 
-| 번호 | 입력 | 예상 출력 | 실제 출력 | 사진·영상 |
+- Hardware Manager 콘솔에서 `program_hw_devices`가 4회 실행되었다.
+
+- 배선·입력·출력이 보이는 영상: `evidence/board/videos/20260914_175947.mp4` (2026-09-14 17:59:47 촬영).
+
+
+| 조건 | 예상 출력 | 실측 출력 | 사진/영상 시각 | 일치 여부·원인 |
 |---|---|---|---|---|
-| 1 | ______ | ______ | ______ | `evidence/board/photos/______` |
-| 2 | ______ | ______ | ______ | `evidence/board/videos/______` |
+| bcd=0000 | seg_data=8'hfc (11111100) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0001 | seg_data=8'h60 (01100000) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0010 | seg_data=8'hda (11011010) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0011 | seg_data=8'hf2 (11110010) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0100 | seg_data=8'h66 (01100110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0101 | seg_data=8'hb6 (10110110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0110 | seg_data=8'hbe (10111110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=0111 | seg_data=8'he0 (11100000) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1000 | seg_data=8'hfe (11111110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1001 | seg_data=8'hf6 (11110110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1010 | seg_data=8'hee (11101110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1011 | seg_data=8'h3e (00111110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1100 | seg_data=8'h9c (10011100) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1101 | seg_data=8'h7a (01111010) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1110 | seg_data=8'h9e (10011110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
+| bcd=1111 | seg_data=8'h8e (10001110) | 예상 출력과 같음 | `20260914_175947.mp4` (2026-09-14 17:59:47) | 일치 |
 
-## 5. 결과 해석
 
-- 예상값·두 시뮬레이션·실측의 일치 또는 차이와 원인: ______
-- 사전 수정 실험에서 배운 점(실패 원인·복구): ______
-- 시험 조건(입력 범위·경계 조건)에 대한 판단: ______
+실측은 작성자가 보드에서 직접 확인한 결과이다.
 
-## 6. 미수행 항목과 후속 확인
+## 비교·결론
 
-- [ ] 보드 기록·사진·영상 및 조교 확인(4절)
+- 예상값(진리표) → VS Code(Icarus) `LAB1_PASS seg_decoder cases=16` → Vivado xsim `LAB1_PASS seg_decoder cases=16`: 검사 16개 모두 일치하고 종료 시각 160 ns로 같다.
 
-## 7. 제출 점검
+- 실측: 위 표의 모든 조건에서 예상 출력과 같았다. 불일치는 없었다.
 
-- [ ] Vivado 버전·part·top·핀 제약·커밋 기록(1절)
-- [ ] VS Code/Vivado 비교(2절), 합성·구현·bit(3절)
-- [ ] 장치 기록·사진·영상(4절), 해석(5절), 미완료 항목(6절)
-- [ ] `reports/post/`, `evidence/`에 저장 후 push, GitHub 웹에서 사진·영상 확인
+- 구현 성공(bit 생성)만으로 동작을 확인한 것으로 보지 않고, 위 실측 표를 별도로 확인했다.
+
+## 제출 링크
+
+소스 커밋: https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 / 실험 전 레포트: `reports/pre/lab1_10_pre_report.md` / 로그·VCD: `evidence/simulation.txt`, `evidence/wave.vcd`, `evidence/vivado/` / bit·해시: 위 3절 (SHA-256 `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`) / 영상: `evidence/board/videos/20260914_175947.mp4` / GitHub에서 링크 확인한 날짜: ______
