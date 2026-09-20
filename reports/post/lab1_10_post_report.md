@@ -1,6 +1,6 @@
 # 실험 후 레포트: LAB1-10 7세그먼트 디코더
 
-작성자: 엄상혁 (학번 ______) / 조: g조 / 실험일: 2026-09-14 / 소스 커밋: `2f36dbc` (https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29) / 구현 도구·버전: Vivado 2026.1 (Build 6511674) / part: xc7s75fgga484-1 / top: `seg_decoder` (시뮬레이션 top `tb_seg_decoder`) / XDC: `constraints/pins.xdc`
+작성자: 엄상혁 (학번 2025440084) / 조: g조 / 실험일: 2026-09-14 / 소스 커밋: `2f36dbc` (https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29) / 구현 도구·버전: Vivado 2026.1 (Build 6511674) / part: xc7s75fgga484-1 / top: `seg_decoder` (시뮬레이션 top `tb_seg_decoder`) / XDC: `constraints/pins.xdc`
 
 경로: Vivado 경로로 수행했다.
 
@@ -45,7 +45,7 @@
 
 - Hardware Manager 콘솔에서 `program_hw_devices`가 4회 실행되었다.
 
-- 배선·입력·출력이 보이는 영상: `evidence/board/videos/20260914_175947.mp4` (2026-09-14 17:59:47 촬영).
+- 배선·입력·출력이 보이는 영상: [Google Drive 폴더](https://drive.google.com/drive/folders/17CYT6_AjE33Nx-5OtlnLNM2UfF3zLPYG)의 `20260914_175947.mp4` (2026-09-14 17:59:47 촬영).
 
 
 | 조건 | 예상 출력 | 실측 출력 | 사진/영상 시각 | 일치 여부·원인 |
@@ -80,4 +80,4 @@
 
 ## 제출 링크
 
-소스 커밋: https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 / 실험 전 레포트: `reports/pre/lab1_10_pre_report.md` / 로그·VCD: `evidence/simulation.txt`, `evidence/wave.vcd`, `evidence/vivado/` / bit·해시: 위 3절 (SHA-256 `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`) / 영상: `evidence/board/videos/20260914_175947.mp4` / GitHub에서 링크 확인한 날짜: ______
+소스 커밋: https://github.com/dhawldnjs010-star/lab1_10_seg_decoder/commit/2f36dbc7e8014958276584da663d46e96727fc29 / 실험 전 레포트: `reports/pre/lab1_10_pre_report.md` / 로그·VCD: `evidence/simulation.txt`, `evidence/wave.vcd`, `evidence/vivado/` / bit·해시: 위 3절 (SHA-256 `6bfbe96efc4751797a8ef6f91672635a0f5d0c7ec962516f854ad5ab48735b81`) / 영상: https://drive.google.com/drive/folders/17CYT6_AjE33Nx-5OtlnLNM2UfF3zLPYG (`20260914_175947.mp4`) / GitHub에서 링크 확인한 날짜: ______
